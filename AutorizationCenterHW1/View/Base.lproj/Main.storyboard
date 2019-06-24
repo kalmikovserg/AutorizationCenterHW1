@@ -84,11 +84,17 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="167" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="Forget user name?"/>
+                                                <connections>
+                                                    <action selector="forgetNameAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1sL-i5-N7v"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KPP-Ni-HKc">
                                                 <rect key="frame" x="167" y="0.0" width="167" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="Forget password?"/>
+                                                <connections>
+                                                    <action selector="forgetPassAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GFP-hi-zWq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -118,8 +124,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="jhK-9n-Sxw"/>
                     <connections>
-                        <outlet property="forgetNameLabel" destination="2AT-Bf-9V1" id="EAp-Dn-Sye"/>
-                        <outlet property="forgetPassLabel" destination="KPP-Ni-HKc" id="WVe-Gf-vjz"/>
                         <outlet property="passLabel" destination="PZE-bv-Ujr" id="Y82-Pi-ew2"/>
                         <outlet property="userFailedLabel" destination="yRK-Kf-vL9" id="uli-XN-i1p"/>
                         <outlet property="userNameLabel" destination="JFh-z0-nkg" id="FXO-a7-lnH"/>
@@ -139,7 +143,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="MVF-5A-Zyt">
-                                <rect key="frame" x="20" y="269.5" width="374" height="357"/>
+                                <rect key="frame" x="20" y="214.5" width="374" height="467"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="Ajq-He-c2X">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="127"/>
@@ -165,16 +169,22 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="4lb-kw-Imx">
-                                        <rect key="frame" x="0.0" y="177" width="374" height="180"/>
+                                        <rect key="frame" x="0.0" y="177" width="374" height="290"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xjy-Me-9ne">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xjy-Me-9ne">
                                                 <rect key="frame" x="20" y="0.0" width="334" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G4W-St-SLR">
+                                                <rect key="frame" x="20" y="110" width="334" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plj-T9-Mfp">
-                                                <rect key="frame" x="128" y="110" width="118" height="70"/>
+                                                <rect key="frame" x="128" y="220" width="118" height="70"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                                 <state key="normal" title="Apply">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -187,6 +197,9 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="plj-T9-Mfp" firstAttribute="centerX" secondItem="4lb-kw-Imx" secondAttribute="centerX" id="6Tj-pq-STe"/>
+                                            <constraint firstItem="G4W-St-SLR" firstAttribute="centerX" secondItem="4lb-kw-Imx" secondAttribute="centerX" id="8YW-X6-tDo"/>
+                                            <constraint firstAttribute="trailing" secondItem="G4W-St-SLR" secondAttribute="trailing" constant="20" id="XQg-zP-weX"/>
+                                            <constraint firstItem="G4W-St-SLR" firstAttribute="leading" secondItem="4lb-kw-Imx" secondAttribute="leading" constant="20" id="Xoh-dz-yIR"/>
                                             <constraint firstAttribute="trailing" secondItem="xjy-Me-9ne" secondAttribute="trailing" constant="20" id="mfy-hA-q74"/>
                                             <constraint firstItem="xjy-Me-9ne" firstAttribute="leading" secondItem="4lb-kw-Imx" secondAttribute="leading" constant="20" id="xfw-Qo-5uu"/>
                                         </constraints>
@@ -212,8 +225,9 @@
                     <connections>
                         <outlet property="buttonLabel" destination="plj-T9-Mfp" id="cEZ-rZ-1gp"/>
                         <outlet property="cuurentStateLabel" destination="0XZ-4F-5j1" id="XLY-zF-thg"/>
-                        <outlet property="messegeForUser" destination="Ajq-He-c2X" id="uoa-Vn-wnH"/>
+                        <outlet property="passTextField" destination="G4W-St-SLR" id="S0a-wy-Bkn"/>
                         <outlet property="textFieldLabel" destination="xjy-Me-9ne" id="KvA-KM-Uhs"/>
+                        <outlet property="userMessage" destination="J33-14-PWi" id="MfP-hq-RD8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o2B-Az-YjY" userLabel="First Responder" sceneMemberID="firstResponder"/>

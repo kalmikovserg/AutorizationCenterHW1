@@ -9,8 +9,8 @@
 import Foundation
 
 class User {
-     let name: String
-     let pass: String
+     var name: String
+     var pass: String
     
     init(name: String, pass: String) {
         self.name = name

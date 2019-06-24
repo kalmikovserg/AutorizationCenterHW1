@@ -10,7 +10,7 @@ import Foundation
 
 class AccountingData {
     
-    static func getStatus(user: User, completed: (_ status: StateSegue)->()) {
+    static func getStatus(user: User, completed: @escaping (_ status: StateSegue) -> Void) {
      
       let userDefault = UserDefaults.standard
       var status = StateSegue.forgetName
@@ -23,5 +23,12 @@ class AccountingData {
             }
         }
         completed(status)
+    }
+    
+    static func saveData(for user: User) {
+        let userDefault = UserDefaults.standard
+        userDefault.setValue(user.name, forKey: user.name)
+        userDefault.setValue(user.pass, forKey: user.name)
+        userDefault.synchronize()
     }
 }
