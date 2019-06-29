@@ -23,6 +23,25 @@ class MainViewController: UIViewController {
         userNameLabel.layer.cornerRadius = 10
         passLabel.layer.cornerRadius = 10
         userFailedLabel.isHidden = true
+        
+        NotificationCenter.default.addObserver( self , selector: #selector(keyboardShow), name: UIResponder.keyboardDidShowNotification , object: nil)
+        
+        NotificationCenter.default.addObserver( self , selector: #selector(keyboardHide), name: UIResponder.keyboardDidHideNotification , object: nil)
+        
+    }
+    
+    @objc func keyboardShow(notification : Notification) {
+        guard let userInfo = notification.userInfo  else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        (self.view as! UIScrollView).contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + keyboardSize.height )
+    }
+    
+    @objc func keyboardHide() {
+      (self.view as! UIScrollView).contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setDefUser()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,7 +61,9 @@ class MainViewController: UIViewController {
             print("uncoorect pass"); return
         }
         if !userName.isEmpty && !pass.isEmpty {
-           currentUser =  (currentUser == nil) ? User.init(name: "", pass: "") : currentUser
+            
+            currentUser =  User.init(name: userName, pass: pass)
+            
             AccountingData.getStatus(user: currentUser) { (stateSegue) in
                 switch stateSegue{
                 case .correctEnter:
@@ -55,8 +76,9 @@ class MainViewController: UIViewController {
                     self.userFailedLabel.isHidden = true
                     self.currentStatus = .forgetPass
                 }
+                self.tryPerfomSegue()
             }
-            tryPerfomSegue()
+            
         } else {
             print("is epty data "); return
         }
@@ -70,16 +92,26 @@ class MainViewController: UIViewController {
     
     @IBAction func forgetPassAction(_ sender: UIButton) {
         currentStatus = StateSegue.forgetPass
-        currentUser =  (currentUser == nil) ? User.init(name: "", pass: "") : currentUser
-        tryPerfomSegue()
+        guard let userName = userNameLabel.text else {
+            print("uncorrect user") ; return
+        }
+        
+        if !(userName == "")  {
+            currentUser =  (currentUser == nil) ? User.init(name: userName, pass: "") : currentUser
+            tryPerfomSegue()} else {
+            print("Enter name")
+        }
+        
     }
     @IBAction func unwin(_ segue: UIStoryboardSegue) {
-        if segue.identifier == "mainSegue" {
-            
-            guard let secondController = segue.source as? SecondViewController else { return }
-            let curUser = secondController.currentUser
-            userNameLabel.text = curUser?.name
-            passLabel.text = curUser?.pass
+        
+    }
+    
+    private func setDefUser() {
+        var defaultUser = AccountingData.getDefauldUser()
+        if defaultUser != nil {
+            userNameLabel.text = defaultUser?["key"]
+            passLabel.text = defaultUser?["pas"]
         }
     }
     private func tryPerfomSegue() {

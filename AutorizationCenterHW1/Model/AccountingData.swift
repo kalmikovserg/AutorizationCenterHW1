@@ -10,24 +10,35 @@ import Foundation
 
 class AccountingData {
     
-    static func getStatus(user: User, completed: @escaping (_ status: StateSegue) -> Void) {
-     
-      let userDefault = UserDefaults.standard
-      var status = StateSegue.forgetName
+    static func getStatus(user: User, completed:  (_ status: StateSegue) -> Void) {
         
-        if let userName = userDefault.string(forKey: user.name){
-            if let _ = userDefault.string(forKey: userName) {
-               status = .correctEnter
-            } else {
-                status = .forgetPass
+        var status = StateSegue.forgetName
+        
+        let userDefault = UserDefaults.standard
+        if let userName = userDefault.string(forKey: "Default"){
+            if userName == user.name {
+                if let userPas = userDefault.string(forKey: userName){
+                    if userPas == user.pass {
+                        status = StateSegue.correctEnter
+                    } else {
+                        status = StateSegue.forgetPass
+                    }
+                }
             }
         }
-        completed(status)
+         completed(status)
+    }
+    static func getDefauldUser() -> [String: String]!{
+        
+        let userDefault = UserDefaults.standard
+        guard  let userDef = userDefault.string(forKey: "Default") else {return nil}
+        guard   let passDefault = userDefault.string(forKey: userDef) else {return nil}
+        return ["key": userDef,"pas": passDefault]
     }
     
     static func saveData(for user: User) {
         let userDefault = UserDefaults.standard
-        userDefault.setValue(user.name, forKey: user.name)
+        userDefault.setValue(user.name, forKey: "Default")
         userDefault.setValue(user.pass, forKey: user.name)
         userDefault.synchronize()
     }

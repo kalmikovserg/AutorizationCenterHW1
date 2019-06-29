@@ -34,7 +34,7 @@ class SecondViewController: UIViewController {
             cuurentStateLabel.text = "world is here"
         case .forgetName:
             guard let name = textFieldLabel.text else { return }
-            guard let pass = textFieldLabel.text else { return }
+            guard let pass = passTextField.text else { return }
             if !name.isEmpty {
                 currentUser.name = name
                 currentUser.pass = pass
@@ -42,7 +42,7 @@ class SecondViewController: UIViewController {
             }
         case .forgetPass:
             guard let name = textFieldLabel.text else { return }
-            guard let pass = textFieldLabel.text else { return }
+            guard let pass = passTextField.text else { return }
             if !pass.isEmpty {
                 currentUser.name = name
                 currentUser.pass = pass
@@ -67,17 +67,21 @@ class SecondViewController: UIViewController {
             
         case .forgetName:
             cuurentStateLabel.text = "Forget Name?"
-            userMessage.text = "Enter your name in textfield"
+            userMessage.text = "Enter your name and new pass in textfield"
             textFieldLabel.isHidden = false
             passTextField.isHidden = false
-            buttonLabel.setTitle("Done", for: .normal)
+            buttonLabel.setTitle("Save", for: .normal)
+             textFieldLabel.text = currentUser.name
+             passTextField.text = currentUser.pass
             
         case .forgetPass:
             cuurentStateLabel.text = "Forget Pass?"
             userMessage.text = "\(currentUser.name) enter new pass"
-            textFieldLabel.isHidden = false
+            textFieldLabel.isHidden = true
             passTextField.isHidden = false
-            buttonLabel.setTitle("Done", for: .normal)
+            buttonLabel.setTitle("Save", for: .normal)
+            textFieldLabel.text = currentUser.name
+            passTextField.text = currentUser.pass
         }
     }
 }
